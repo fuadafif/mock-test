@@ -1,0 +1,29 @@
+.profile {
+  width: 100px;
+  height: 100px;
+  margin: 15px;
+  border-radius: 50px;
+}
+.container-fluid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.game {
+  width: 30%;
+  margin-bottom: 1rem;
+  margin: 10px 10px;
+}
+
+.game .button {
+  text-align: center;
+  margin-top: auto;
+}
+
+.img-game {
+  width: 375px;
+  height: 225px;
+}

@@ -1,0 +1,15 @@
+.navbar {
+  background: linear-gradient(293.57deg, #114e4e 0%, #052d2d 23.8%, #041111 42.57%, #000909 63.76%, #000909 69.62%);
+}
+
+.link {
+  color: white;
+  display: inline;
+}
+
+.signup {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 30px;
+  display: inline;
+}
