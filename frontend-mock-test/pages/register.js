@@ -1,33 +1,36 @@
 import axios from "axios";
 import { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { useRouter } from "next/router";
 import style from "../styles/RegistLogin.module.css";
 
 import Link from "next/link";
 
 function Register() {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const navigate = useNavigate();
 
-  async function submit(event) {
+  const submit = async (event) => {
     event.preventDefault();
 
-    try {
-      const result = await axios.post("https://localhost:4000/register", {
-        email: email,
-        username: username,
-        password: password,
-      });
-      alert(result.data.message);
-      router.push("/login");
-    } catch (err) {
-      alert("Your email is already in use.");
-      window.location.reload();
+    if (!name || !email || !password) {
+      alert("Can not be empty!");
+    } else {
+      try {
+        const result = await axios.post("https://test-binar.herokuapp.com/auth/signup", {
+          name: name,
+          email: email,
+          password: password,
+        });
+        console.log(result.data.result);
+        alert("Register successful");
+        navigate("/login");
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
+  };
 
   const btnClick = () => {
     const btn = document.getElementById("btn");
@@ -51,17 +54,17 @@ function Register() {
                       </div>
                       <h2 className={`fw-normal mb-3 pb-3 ${style["sign-css"]}`}>Register</h2>
                       <FormGroup>
-                        <Label for="username" hidden>
-                          Username
+                        <Label for="name" hidden>
+                          Name
                         </Label>
                         <Input
                           onChange={(event) => {
-                            setUsername(event.target.value);
+                            setName(event.target.value);
                           }}
                           type="text"
-                          id="username"
-                          name="username"
-                          placeholder="Enter a username"
+                          id="name"
+                          name="name"
+                          placeholder="Enter a name"
                         />
                       </FormGroup>
                       <FormGroup>

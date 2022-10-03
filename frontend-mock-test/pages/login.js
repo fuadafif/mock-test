@@ -1,37 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { useRouter } from "next/router";
 import axios from "axios";
 import style from "../styles/RegistLogin.module.css";
-
-import { useDispatch } from "react-redux";
-import { auth } from "../features/authSlice";
 
 import Link from "next/link";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
-  async function submit(event) {
+  const submit = async (event) => {
     event.preventDefault();
-
-    try {
-      const result = await axios.post("https://localhost:4000/login", {
-        username: username,
-        password: password,
-      });
-      dispatch(auth({ username }));
-      alert(result.data.message);
-      router.push("/");
-    } catch (err) {
-      alert("You don't have an account, create your account");
-      window.location.reload();
+    if (!email || !password) {
+      alert("Can not be empty!");
+    } else {
+      try {
+        const result = await axios.post("https://test-binar.herokuapp.com/auth/login", {
+          email: email,
+          password: password,
+        });
+        localStorage.setItem("pass", result.data.result.access_token);
+        navigate("/dashboard");
+      } catch (error) {
+        alert("Wrong Password!");
+      }
     }
-  }
+  };
 
   const btnClick = () => {
     const btn = document.getElementById("btn");
@@ -55,17 +50,17 @@ function Login() {
                       </div>
                       <h2 className={`fw-normal mb-3 pb-3 ${style["sign-css"]}`}>Login</h2>
                       <FormGroup>
-                        <Label for="username" hidden>
-                          E-mail / Username
+                        <Label for="email" hidden>
+                          E-mail
                         </Label>
                         <Input
-                          value={username}
+                          value={email}
                           onChange={(event) => {
-                            setUsername(event.target.value);
+                            setEmail(event.target.value);
                           }}
                           type="text"
-                          id="username"
-                          name="username"
+                          id="email"
+                          name="email"
                           placeholder="Enter your e-mail"
                         />
                       </FormGroup>{" "}

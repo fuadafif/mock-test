@@ -104,19 +104,6 @@ function Home() {
         </div>
       </div>
       <Footer />
-      {/* MODAL RANDOM SCORE */}
-      <Modal
-        isOpen={modal}
-        toggle={toggle}
-        modalTransition={{ timeout: 100 }}
-        style={{
-          width: 100,
-        }}
-      >
-        <ModalBody>
-          Win: {randomScoreWin} Lost: {randomScoreLost}
-        </ModalBody>
-      </Modal>
     </>
   );
 }
